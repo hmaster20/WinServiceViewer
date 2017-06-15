@@ -82,6 +82,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="main.ico" />
     <Content Include="PNG\pause.png" />
     <Content Include="PNG\start.png" />
     <Content Include="PNG\stop.png" />

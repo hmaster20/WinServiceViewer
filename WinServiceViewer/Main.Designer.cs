@@ -37,14 +37,8 @@
             this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ts = new System.Windows.Forms.ToolStrip();
             this.scanService = new System.Windows.Forms.ToolStripButton();
-            this.tsUpdate = new System.Windows.Forms.ToolStripButton();
-            this.tsStopUpdate = new System.Windows.Forms.ToolStripButton();
-            this.tsRestoreUpdate = new System.Windows.Forms.ToolStripButton();
-            this.test_start = new System.Windows.Forms.ToolStripButton();
-            this.test_stop = new System.Windows.Forms.ToolStripButton();
-            this.test_pause = new System.Windows.Forms.ToolStripButton();
-            this.test_resume = new System.Windows.Forms.ToolStripButton();
-            this.CancelScanService = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.ts.SuspendLayout();
             this.SuspendLayout();
@@ -94,14 +88,8 @@
             // 
             this.ts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.scanService,
-            this.CancelScanService,
-            this.tsUpdate,
-            this.tsStopUpdate,
-            this.tsRestoreUpdate,
-            this.test_start,
-            this.test_stop,
-            this.test_pause,
-            this.test_resume});
+            this.toolStripButton1,
+            this.btnStop});
             this.ts.Location = new System.Drawing.Point(0, 0);
             this.ts.Name = "ts";
             this.ts.Size = new System.Drawing.Size(638, 25);
@@ -116,84 +104,28 @@
             this.scanService.Name = "scanService";
             this.scanService.Size = new System.Drawing.Size(23, 22);
             this.scanService.Text = "Получить список служб";
+            this.scanService.Click += new System.EventHandler(this.scanService_Click);
             // 
-            // tsUpdate
+            // toolStripButton1
             // 
-            this.tsUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsUpdate.Name = "tsUpdate";
-            this.tsUpdate.Size = new System.Drawing.Size(23, 22);
-            this.tsUpdate.Text = "Update";
-            this.tsUpdate.Click += new System.EventHandler(this.tsUpdate_Click);
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // tsStopUpdate
+            // btnStop
             // 
-            this.tsStopUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsStopUpdate.Image = ((System.Drawing.Image)(resources.GetObject("tsStopUpdate.Image")));
-            this.tsStopUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsStopUpdate.Name = "tsStopUpdate";
-            this.tsStopUpdate.Size = new System.Drawing.Size(23, 22);
-            this.tsStopUpdate.Text = "StopUpdate";
-            this.tsStopUpdate.Click += new System.EventHandler(this.tsStopUpdate_Click);
-            // 
-            // tsRestoreUpdate
-            // 
-            this.tsRestoreUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsRestoreUpdate.Image = ((System.Drawing.Image)(resources.GetObject("tsRestoreUpdate.Image")));
-            this.tsRestoreUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsRestoreUpdate.Name = "tsRestoreUpdate";
-            this.tsRestoreUpdate.Size = new System.Drawing.Size(23, 22);
-            this.tsRestoreUpdate.Text = "RestoreUpdate";
-            // 
-            // test_start
-            // 
-            this.test_start.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.test_start.Image = ((System.Drawing.Image)(resources.GetObject("test_start.Image")));
-            this.test_start.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.test_start.Name = "test_start";
-            this.test_start.Size = new System.Drawing.Size(23, 22);
-            this.test_start.Text = "test_start";
-            this.test_start.Click += new System.EventHandler(this.test_start_Click);
-            // 
-            // test_stop
-            // 
-            this.test_stop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.test_stop.Image = ((System.Drawing.Image)(resources.GetObject("test_stop.Image")));
-            this.test_stop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.test_stop.Name = "test_stop";
-            this.test_stop.Size = new System.Drawing.Size(23, 22);
-            this.test_stop.Text = "test_stop";
-            this.test_stop.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // test_pause
-            // 
-            this.test_pause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.test_pause.Image = ((System.Drawing.Image)(resources.GetObject("test_pause.Image")));
-            this.test_pause.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.test_pause.Name = "test_pause";
-            this.test_pause.Size = new System.Drawing.Size(23, 22);
-            this.test_pause.Text = "test_pause";
-            this.test_pause.Click += new System.EventHandler(this.test_pause_Click);
-            // 
-            // test_resume
-            // 
-            this.test_resume.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.test_resume.Image = ((System.Drawing.Image)(resources.GetObject("test_resume.Image")));
-            this.test_resume.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.test_resume.Name = "test_resume";
-            this.test_resume.Size = new System.Drawing.Size(23, 22);
-            this.test_resume.Text = "test_resume";
-            this.test_resume.Click += new System.EventHandler(this.test_resume_Click);
-            // 
-            // CancelScanService
-            // 
-            this.CancelScanService.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CancelScanService.Enabled = false;
-            this.CancelScanService.Image = global::WinServiceViewer.Properties.Resources.stop;
-            this.CancelScanService.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CancelScanService.Name = "CancelScanService";
-            this.CancelScanService.Size = new System.Drawing.Size(23, 22);
-            this.CancelScanService.Text = "Отмена";
+            this.btnStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStop.Enabled = false;
+            this.btnStop.Image = global::WinServiceViewer.Properties.Resources.stop;
+            this.btnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(23, 22);
+            this.btnStop.Text = "Отмена";
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // Main
             // 
@@ -204,7 +136,6 @@
             this.Controls.Add(this.ts);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Main";
-            this.Text = "Список сервисов";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ts.ResumeLayout(false);
@@ -219,19 +150,13 @@
         private System.Windows.Forms.ListView listViewService;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStrip ts;
-        private System.Windows.Forms.ToolStripButton tsUpdate;
-        private System.Windows.Forms.ToolStripButton tsStopUpdate;
-        private System.Windows.Forms.ToolStripButton tsRestoreUpdate;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.ToolStripButton test_start;
-        private System.Windows.Forms.ToolStripButton test_stop;
-        private System.Windows.Forms.ToolStripButton test_pause;
-        private System.Windows.Forms.ToolStripButton test_resume;
         private System.Windows.Forms.ToolStripButton scanService;
-        private System.Windows.Forms.ToolStripButton CancelScanService;
+        private System.Windows.Forms.ToolStripButton btnStop;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 
