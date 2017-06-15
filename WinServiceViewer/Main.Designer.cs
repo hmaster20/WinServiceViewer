@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.listViewService = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tsScanStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsState = new System.Windows.Forms.ToolStripStatusLabel();
@@ -44,13 +41,9 @@
             // 
             // listViewService
             // 
-            this.listViewService.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
             this.listViewService.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewService.FullRowSelect = true;
-            this.listViewService.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewService.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewService.Location = new System.Drawing.Point(0, 25);
             this.listViewService.MultiSelect = false;
             this.listViewService.Name = "listViewService";
@@ -59,14 +52,6 @@
             this.listViewService.TabIndex = 0;
             this.listViewService.UseCompatibleStateImageBehavior = false;
             this.listViewService.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Width = 150;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Width = 150;
             // 
             // statusStrip
             // 
@@ -108,7 +93,7 @@
             this.btnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(23, 22);
-            this.btnStart.Text = "toolStripButton2";
+            this.btnStart.Text = "Получить список сервисов";
             this.btnStart.CheckedChanged += new System.EventHandler(this.btnStart_CheckedChanged);
             // 
             // btnStop
@@ -145,9 +130,6 @@
         private System.Windows.Forms.ListView listViewService;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStrip ts;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ToolStripStatusLabel tsScanStatus;
         private System.Windows.Forms.ToolStripButton btnStop;
         private System.Windows.Forms.ToolStripButton btnStart;

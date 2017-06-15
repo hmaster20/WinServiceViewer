@@ -31,6 +31,11 @@ namespace WinServiceViewer
             backgroundWorker.WorkerSupportsCancellation = true;
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            
+            listViewService.Columns.Add("Name", 150, HorizontalAlignment.Left);
+            listViewService.Columns.Add("DisplayName", 150, HorizontalAlignment.Left);
+            listViewService.Columns.Add("Status", 70, HorizontalAlignment.Left);
+            listViewService.Columns.Add("Login", -2, HorizontalAlignment.Left);
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -57,7 +62,7 @@ namespace WinServiceViewer
                         }
                     }
 
-                    this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.Status.ToString(), login })); }));
+                    this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.DisplayName, service.Status.ToString(), login })); }));
                     tsScanStatus.Text = "Найдено сервисов: " + count;
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
@@ -78,6 +83,7 @@ namespace WinServiceViewer
             {
                 btnStart.Image = WinServiceViewer.Properties.Resources.pause;
                 tsState.Text = "Сканирование запущено";
+                tsState.ForeColor = Color.Green;
                 if (!backgroundWorker.IsBusy)
                 {
                     listViewService.Items.Clear();
@@ -89,7 +95,9 @@ namespace WinServiceViewer
             {
                 _busy.Reset();
                 btnStart.Image = WinServiceViewer.Properties.Resources.start;
-                tsState.Text = "Сканирование остановлено";
+                tsState.Text = "Сканирование приостановлено";
+                tsState.ForeColor = Color.OrangeRed;
+
             }
             btnStop.Enabled = true;
         }
