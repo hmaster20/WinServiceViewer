@@ -13,9 +13,6 @@ using System.Management;
 using System.Diagnostics;
 using System.Threading;
 
-
-// Получение информации по сервисам можно приостановить и продолжить»
-
 namespace WinServiceViewer
 {
     public partial class Main : Form
@@ -53,16 +50,14 @@ namespace WinServiceViewer
                     string select = "select name, startname from Win32_Service where name = '" + service.ServiceName + "'";
                     using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(new SelectQuery(string.Format(select))))
                     {
-                        foreach (ManagementObject servicew in searcher.Get())
+                        foreach (ManagementObject _service in searcher.Get())
                         {
-                            // Console.WriteLine(string.Format("Name: {0} - Logon : {1} ", servicew["Name"], servicew["startname"]));
-                            login = string.Format("{0}", servicew["startname"]);
+                            login = string.Format("{0}", _service["startname"]);
                             break;
                         }
                     }
 
                     this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.Status.ToString(), login })); }));
-                    //listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.Status.ToString(), login }));
                     tsScanStatus.Text = "Найдено сервисов: " + count;
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
@@ -83,7 +78,11 @@ namespace WinServiceViewer
             {
                 btnStart.Image = WinServiceViewer.Properties.Resources.pause;
                 tsState.Text = "Сканирование запущено";
-                if (!backgroundWorker.IsBusy) backgroundWorker.RunWorkerAsync();
+                if (!backgroundWorker.IsBusy)
+                {
+                    listViewService.Items.Clear();
+                    backgroundWorker.RunWorkerAsync();
+                }
                 _busy.Set();
             }
             else
@@ -99,11 +98,8 @@ namespace WinServiceViewer
         {
             if (backgroundWorker.IsBusy)
             {
-                // Set CancellationPending property to true
                 backgroundWorker.CancelAsync();
-                // Unblock worker so it can see that
                 _busy.Set();
-
                 btnStop.Enabled = false;
             }
         }

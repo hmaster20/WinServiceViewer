@@ -34,10 +34,10 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tsScanStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsState = new System.Windows.Forms.ToolStripStatusLabel();
             this.ts = new System.Windows.Forms.ToolStrip();
             this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.tsState = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.ts.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +66,7 @@
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Width = 100;
+            this.columnHeader3.Width = 150;
             // 
             // statusStrip
             // 
@@ -83,6 +83,11 @@
             // 
             this.tsScanStatus.Name = "tsScanStatus";
             this.tsScanStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsState
+            // 
+            this.tsState.Name = "tsState";
+            this.tsState.Size = new System.Drawing.Size(0, 17);
             // 
             // ts
             // 
@@ -116,11 +121,6 @@
             this.btnStop.Size = new System.Drawing.Size(23, 22);
             this.btnStop.Text = "Отмена";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
-            // tsState
-            // 
-            this.tsState.Name = "tsState";
-            this.tsState.Size = new System.Drawing.Size(0, 17);
             // 
             // Main
             // 
