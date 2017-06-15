@@ -13,8 +13,7 @@ using System.Management;
 using System.Diagnostics;
 using System.Threading;
 
-// В UI нужно отображать Name, DisplayName, Status и аккаунт под которым работает служба. 
-// ListView должен заполняться по мере получения информации (получение информации по сервису может занять длительное время). 
+
 // Получение информации по сервисам можно приостановить и продолжить»
 
 namespace WinServiceViewer
@@ -28,113 +27,16 @@ namespace WinServiceViewer
         {
             InitializeComponent();
 
+            this.Icon = WinServiceViewer.Properties.Resources.main;
+            this.Text = "Список сервисов Windows";
+
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
-            //backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
-            //backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker_ProgressChanged);
-
-            this.Icon = WinServiceViewer.Properties.Resources.main;
-            this.Text = "Список сервисов Windows";
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
-        //void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    for (int i = 1; i < 100; i++)
-        //    {
-        //        _busy.WaitOne(Timeout.Infinite);
-        //        if (backgroundWorker.CancellationPending)
-        //            return;
-        //        Thread.Sleep(1000);
-        //        backgroundWorker.ReportProgress(i);
-        //    }
-        //}
-
-        //void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //  // toolStripProgressBar1.Value = e.ProgressPercentage;
-        //}
-
-        //void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    MessageBox.Show(this, "Вывод информации о службах Windows завершен");
-        //}
-
-        //private void test_start_Click(object sender, EventArgs e)
-        //{
-        //    //backgroundWorker.RunWorkerAsyn​c();
-
-        //    if (!backgroundWorker.IsBusy)
-        //    {
-        //        MessageBox.Show("Not Busy"); //Just For Debugg
-        //        _busy.Set();
-        //        //Start_Back.Text = "Pause";
-        //        backgroundWorker.RunWorkerAsync();
-        //    }
-        //    else
-        //    {
-        //        _busy.Reset();
-        //        //Start_Back.Text = "Resume";
-        //    }
-
-        //   // btnStop.Enabled = true;
-
-        //}
-
-        //private void buttonCancel_Click(object sender, EventArgs e)
-        //{
-        //    CancelWorker();
-        //}
-
-        //private void test_pause_Click(object sender, EventArgs e)
-        //{
-        //    PauseWorker();
-        //}
-
-        //private void test_resume_Click(object sender, EventArgs e)
-        //{
-        //    ResumeWorker();
-        //}
-
-
-        //void ResumeWorker()
-        //{
-        //    // Start the worker if it isn't running
-        //    if (!backgroundWorker.IsBusy) backgroundWorker.RunWorkerAsync();
-        //    // Unblock the worker 
-        //    _busy.Set();
-        //}
-
-        //void PauseWorker()
-        //{
-        //    // Block the worker
-        //    _busy.Reset();
-        //}
-
-        //void CancelWorker()
-        //{
-        //    if (backgroundWorker.IsBusy)
-        //    {
-        //        // Set CancellationPending property to true
-        //        backgroundWorker.CancelAsync();
-        //        // Unblock worker so it can see that
-        //        _busy.Set();
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-        void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             int count = 0;
 
@@ -161,39 +63,35 @@ namespace WinServiceViewer
 
                     this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.Status.ToString(), login })); }));
                     //listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.Status.ToString(), login }));
-                    tsStatus.Text = "Найдено сервисов: " + count;
+                    tsScanStatus.Text = "Найдено сервисов: " + count;
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
             }
         }
 
-
-        private void scanService_Click(object sender, EventArgs e)
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!backgroundWorker.IsBusy)
-            {
-                // Unblock the worker 
-                _busy.Set();
-
-                scanService.Image = WinServiceViewer.Properties.Resources.pause;
-                backgroundWorker.RunWorkerAsync();
-            }
-            else
-            {   //PauseWorker
-                _busy.Reset();
-
-                scanService.Image = WinServiceViewer.Properties.Resources.start;
-            }
-
-            btnStop.Enabled = true;
+            tsState.Text = "Сканирование завершено!";          
+            btnStart.Image = WinServiceViewer.Properties.Resources.start;
+            btnStop.Enabled = false;
         }
 
-        void ResumeWorker()
+        private void btnStart_CheckedChanged(object sender, EventArgs e)
         {
-            // Start the worker if it isn't running
-            if (!backgroundWorker.IsBusy) backgroundWorker.RunWorkerAsync();
-            // Unblock the worker 
-            _busy.Set();
+            if (btnStart.Checked)
+            {
+                btnStart.Image = WinServiceViewer.Properties.Resources.pause;
+                tsState.Text = "Сканирование запущено";
+                if (!backgroundWorker.IsBusy) backgroundWorker.RunWorkerAsync();
+                _busy.Set();
+            }
+            else
+            {
+                _busy.Reset();
+                btnStart.Image = WinServiceViewer.Properties.Resources.start;
+                tsState.Text = "Сканирование остановлено";
+            }
+            btnStop.Enabled = true;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -207,11 +105,6 @@ namespace WinServiceViewer
 
                 btnStop.Enabled = false;
             }
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            ResumeWorker();
         }
     }
 }

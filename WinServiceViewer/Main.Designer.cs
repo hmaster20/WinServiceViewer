@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.listViewService = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.tsScanStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.ts = new System.Windows.Forms.ToolStrip();
-            this.scanService = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1.SuspendLayout();
+            this.tsState = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip.SuspendLayout();
             this.ts.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,26 +68,26 @@
             // 
             this.columnHeader3.Width = 100;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 264);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(638, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsScanStatus,
+            this.tsState});
+            this.statusStrip.Location = new System.Drawing.Point(0, 264);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(638, 22);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip1";
             // 
-            // tsStatus
+            // tsScanStatus
             // 
-            this.tsStatus.Name = "tsStatus";
-            this.tsStatus.Size = new System.Drawing.Size(0, 17);
+            this.tsScanStatus.Name = "tsScanStatus";
+            this.tsScanStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // ts
             // 
             this.ts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scanService,
-            this.toolStripButton1,
+            this.btnStart,
             this.btnStop});
             this.ts.Location = new System.Drawing.Point(0, 0);
             this.ts.Name = "ts";
@@ -96,25 +95,16 @@
             this.ts.TabIndex = 2;
             this.ts.Text = "toolStrip1";
             // 
-            // scanService
+            // btnStart
             // 
-            this.scanService.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.scanService.Image = global::WinServiceViewer.Properties.Resources.start;
-            this.scanService.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.scanService.Name = "scanService";
-            this.scanService.Size = new System.Drawing.Size(23, 22);
-            this.scanService.Text = "Получить список служб";
-            this.scanService.Click += new System.EventHandler(this.scanService_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnStart.CheckOnClick = true;
+            this.btnStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStart.Image = global::WinServiceViewer.Properties.Resources.start;
+            this.btnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(23, 22);
+            this.btnStart.Text = "toolStripButton2";
+            this.btnStart.CheckedChanged += new System.EventHandler(this.btnStart_CheckedChanged);
             // 
             // btnStop
             // 
@@ -127,6 +117,11 @@
             this.btnStop.Text = "Отмена";
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // tsState
+            // 
+            this.tsState.Name = "tsState";
+            this.tsState.Size = new System.Drawing.Size(0, 17);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,10 +129,10 @@
             this.ClientSize = new System.Drawing.Size(638, 286);
             this.Controls.Add(this.listViewService);
             this.Controls.Add(this.ts);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Name = "Main";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ts.ResumeLayout(false);
             this.ts.PerformLayout();
             this.ResumeLayout(false);
@@ -148,15 +143,15 @@
         #endregion
 
         private System.Windows.Forms.ListView listViewService;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStrip ts;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.ToolStripButton scanService;
+        private System.Windows.Forms.ToolStripStatusLabel tsScanStatus;
         private System.Windows.Forms.ToolStripButton btnStop;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnStart;
+        private System.Windows.Forms.ToolStripStatusLabel tsState;
     }
 }
 
