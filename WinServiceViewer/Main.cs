@@ -71,7 +71,8 @@ namespace WinServiceViewer
 
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            tsState.Text = "Сканирование завершено!";          
+            tsState.Text = "Сканирование завершено!";
+            tsState.ForeColor = System.Drawing.Color.Gray;
             btnStart.Image = WinServiceViewer.Properties.Resources.start;
             btnStop.Enabled = false;
         }
