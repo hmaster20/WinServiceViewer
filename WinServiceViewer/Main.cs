@@ -31,10 +31,10 @@ namespace WinServiceViewer
             backgroundWorker.WorkerSupportsCancellation = true;
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            
-            listViewService.Columns.Add("Name", 150, HorizontalAlignment.Left);
-            listViewService.Columns.Add("DisplayName", 150, HorizontalAlignment.Left);
-            listViewService.Columns.Add("Status", 70, HorizontalAlignment.Left);
+
+            listViewService.Columns.Add("Name",-2, HorizontalAlignment.Left);
+            listViewService.Columns.Add("DisplayName", -2, HorizontalAlignment.Left);
+            listViewService.Columns.Add("Status", -2, HorizontalAlignment.Left);
             listViewService.Columns.Add("Login", -2, HorizontalAlignment.Left);
         }
 
@@ -63,6 +63,7 @@ namespace WinServiceViewer
                     }
 
                     this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.DisplayName, service.Status.ToString(), login })); }));
+                    this.Invoke(new MethodInvoker(delegate { AutoResize(); }));
                     tsScanStatus.Text = "Найдено сервисов: " + count;
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
@@ -110,6 +111,19 @@ namespace WinServiceViewer
                 _busy.Set();
                 btnStop.Enabled = false;
             }
+        }
+
+        private void Main_Resize(object sender, EventArgs e)
+        {
+           AutoResize();
+        }
+
+        void AutoResize()
+        {
+            listViewService.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewService.Columns[1].AutoResize(ColumnHeaderAutoResizeStyle.None);
+            listViewService.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewService.Columns[3].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
     }
 }
