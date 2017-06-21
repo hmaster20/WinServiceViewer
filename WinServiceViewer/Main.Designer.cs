@@ -116,6 +116,7 @@
             this.Controls.Add(this.ts);
             this.Controls.Add(this.statusStrip);
             this.Name = "Main";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Resize += new System.EventHandler(this.Main_Resize);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();

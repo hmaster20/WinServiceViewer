@@ -46,6 +46,7 @@ namespace WinServiceViewer
             {
                 try
                 {
+                    //listViewService.BeginUpdate();
                     _busy.WaitOne(Timeout.Infinite);
                     if (backgroundWorker.CancellationPending) return;
 
@@ -65,6 +66,7 @@ namespace WinServiceViewer
                     this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.DisplayName, service.Status.ToString(), login })); }));
                     this.Invoke(new MethodInvoker(delegate { AutoResize(); }));
                     tsScanStatus.Text = "Найдено сервисов: " + count;
+                    //listViewService.EndUpdate();
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
             }
@@ -124,6 +126,12 @@ namespace WinServiceViewer
             listViewService.Columns[1].AutoResize(ColumnHeaderAutoResizeStyle.None);
             listViewService.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewService.Columns[3].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            backgroundWorker.Dispose();
+            _busy.Dispose();
         }
     }
 }
