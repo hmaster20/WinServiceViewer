@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using System.Management;
 using System.Diagnostics;
 using System.Threading;
+using System.Reflection;
 
 namespace WinServiceViewer
 {
@@ -26,6 +27,10 @@ namespace WinServiceViewer
 
             this.Icon = WinServiceViewer.Properties.Resources.main;
             this.Text = "Список сервисов Windows";
+
+            Type type = listViewService.GetType();
+            PropertyInfo propertyInfo = type.GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
+            propertyInfo.SetValue(listViewService, true, null);
 
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
@@ -46,7 +51,6 @@ namespace WinServiceViewer
             {
                 try
                 {
-                    //listViewService.BeginUpdate();
                     _busy.WaitOne(Timeout.Infinite);
                     if (backgroundWorker.CancellationPending) return;
 
@@ -66,7 +70,6 @@ namespace WinServiceViewer
                     this.Invoke(new MethodInvoker(delegate { listViewService.Items.Add(new ListViewItem(new string[] { service.ServiceName, service.DisplayName, service.Status.ToString(), login })); }));
                     this.Invoke(new MethodInvoker(delegate { AutoResize(); }));
                     tsScanStatus.Text = "Найдено сервисов: " + count;
-                    //listViewService.EndUpdate();
                 }
                 catch (Exception ex) { Debug.Print(ex.Message); }
             }

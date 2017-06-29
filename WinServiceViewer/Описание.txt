@@ -1,0 +1,12 @@
+﻿
+Как избавиться от мерцания контрола ListView при обновлении содержимого?
+Включить двойную буферизацию.
+это из-за кадра DoubleBuffered. но свойство закрыто
+поэтому или наследоваться и внутри конструктора записать строчку DoubleBuffered = true;
+или если всё уже красиво сделано второй способ - подобраться к свойству через рефлексию:
+
+Type type = listView1.GetType();
+PropertyInfo propertyInfo = type.GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
+propertyInfo.SetValue(listView1, true, null);
+
+и не забыть using System.Reflection;

@@ -87,6 +87,7 @@
     <Content Include="PNG\start.png" />
     <Content Include="PNG\stop.png" />
     <Content Include="PNG\update.png" />
+    <Content Include="Описание.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
