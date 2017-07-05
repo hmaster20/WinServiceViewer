@@ -130,11 +130,5 @@ namespace WinServiceViewer
             listViewService.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewService.Columns[3].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-
-        private void Main_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            backgroundWorker.Dispose();
-            _busy.Dispose();
-        }
     }
 }
